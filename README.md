@@ -11,7 +11,3 @@ Run `npm run start` for a dev server `http://localhost:4200/`. App will automati
 ## Build
 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-# ts
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.

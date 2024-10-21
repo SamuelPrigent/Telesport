@@ -1,0 +1,30 @@
+@import "./reset.scss"; // reset css
+
+:root {
+  font-family: Arial, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #213547;
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+body {
+  min-height: 100vh;
+}
+
+// custom styles
+h2 {
+  font-size: 21px;
+  margin-top: 10px;
+}

@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class OlympicService {
-  private olympicUrl = './assets/mock/olympic.json';
+  private olympicUrl = "./assets/mock/olympic.json";
   private olympics$ = new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient) {}

@@ -1,3 +1,5 @@
-<h2>Telesport</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<div style="padding-left: 20px">
+  <h2 style="margin-bottom: 20px">Telesport - {{ city }} {{ year }}</h2>
+  <div>{{ (olympics$ | async)?.length }} data is loaded</div>
+</div>
+<Ngx></Ngx>

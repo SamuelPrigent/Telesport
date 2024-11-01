@@ -1,35 +1,30 @@
-// ============ Steps ============
-// 1 - Have to import make + import pieChart (component) in this page
-// - edit section with real data
-
-// 2 - Click on pieChart section should redirect to details chart page
-// steps...
-
 import { Component, OnInit } from "@angular/core";
-import { Observable, of } from "rxjs";
-import { OlympicService } from "src/app/core/services/olympic.service";
+// Data (from service)
+import { Observable, of } from "rxjs"; // observable
+import { OlympicService } from "src/app/core/services/olympic.service"; // to get data
 
 @Component({
   selector: "Home",
   templateUrl: "./home.component.html",
-  // styleUrls: ["./home.component.css"],
 })
-//
 export class Home implements OnInit {
-  public olympics$: Observable<any> = of(null);
-  city: string = "Paris";
-  year: number = 2024;
-  users: { id: number; name: string }[] = [
-    { id: 0, name: "Sarah" },
-    { id: 1, name: "Amy" },
-    { id: 2, name: "Rachel" },
-    { id: 3, name: "Jessica" },
-    { id: 4, name: "Poornima" },
-  ];
-
+  olympicsData: any[] = []; // -- For data
+  // --- Data (from service)
+  olympics$: Observable<any[any]> = of(null);
   constructor(private olympicService: OlympicService) {}
-
   ngOnInit(): void {
+    // --- Set mock data in (for the moment)
+    this.olympicsData = [
+      { name: "Germany", value: 40632 },
+      { name: "United States", value: 49737 },
+      { name: "France", value: 36745 },
+      { name: "United Kingdom", value: 36240 },
+      { name: "Spain", value: 33000 },
+    ];
+    // --- Real data
     this.olympics$ = this.olympicService.getOlympics();
+    this.olympics$.subscribe((data) => {
+      console.log("Data from service :", data);
+    });
   }
 }

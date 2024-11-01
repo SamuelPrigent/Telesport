@@ -1,5 +1,7 @@
-<div style="padding-left: 20px">
-  <h2 style="margin-bottom: 20px">Telesport - {{ city }} {{ year }}</h2>
-  <div>{{ (olympics$ | async)?.length }} data is loaded</div>
+<div style="margin: 30px; margin-left: 15px">
+  <h2 style="margin-bottom: 20px">Telesport 2024</h2>
+  <div style="color: blue">
+    Data from service : {{ (olympics$ | async)?.length }} data
+  </div>
+  <Ngx [data]="olympicsData"></Ngx>
 </div>
-<Ngx></Ngx>

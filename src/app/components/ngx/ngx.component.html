@@ -1,6 +1,9 @@
+<div style="margin-top: 20px; font-weight: bold">Ngx</div>
+<div>Data [1] : {{ data[1].name }}</div>
+<!-- Charts -->
 <ngx-charts-pie-chart
   [view]="view"
-  [results]="single"
+  [results]="data"
   [gradient]="gradient"
   [legend]="showLegend"
   [labels]="showLabels"
@@ -8,5 +11,6 @@
   (select)="onSelect($event)"
   (activate)="onActivate($event)"
   (deactivate)="onDeactivate($event)"
+  [customColors]="barChartcustomColors"
 >
 </ngx-charts-pie-chart>

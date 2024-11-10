@@ -3,11 +3,14 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 
+// fournit le service dans l'app -- permet l'ajout dans un constructor
 @Injectable({
   providedIn: "root",
 })
 export class OlympicService {
   private olympicUrl = "./assets/mock/olympic.json";
+  // Behavior : observable spécial stoquant la dernière valeur
+  // permet d'éviter autre composant de moficier cette valeur ?
   private olympics$ = new BehaviorSubject<any>(undefined);
 
   constructor(private http: HttpClient) {}

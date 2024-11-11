@@ -1,3 +1,6 @@
+$bleuvert: #008591;
+$borderradius: 6px;
+
 .center {
   width: 100vw;
   height: 100vh;
@@ -5,4 +8,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 10px;
+}
+
+.button {
+  padding: 8px 10px;
+  background-color: $bleuvert;
+  border-radius: $borderradius;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
 }

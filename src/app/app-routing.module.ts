@@ -1,23 +1,21 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-//
-// import { HomeComponent } from './pages/home2/home.component';
-//
-import { Home } from './pages/home/home.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+// component
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { Home } from "./pages/home/home.component";
+import { Details } from "./pages/details/details.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: Home,
   },
-  // (when click on the pie chart)
-  // {
-  //   path: 'detail',
-  //   component: DetailComponent,
-  // },
   {
-    path: '**', // wildcard
+    path: "details/:country",
+    component: Details,
+  },
+  {
+    path: "**",
     component: NotFoundComponent,
   },
 ];

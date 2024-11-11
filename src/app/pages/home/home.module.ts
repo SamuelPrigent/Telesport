@@ -3,11 +3,12 @@ import { CommonModule } from "@angular/common";
 // component
 import { Home } from "./home.component";
 // module
-import { NgxModule } from "src/app/components/ngx/ngx.module";
+import { NgxPieModule } from "src/app/components/ngx-pie/ngx-pie.module";
+import { HeaderModule } from "src/app/components/header/header.module";
 
 @NgModule({
   declarations: [Home],
-  imports: [CommonModule, NgxModule],
+  imports: [CommonModule, NgxPieModule, HeaderModule],
   exports: [Home],
 })
 export class HomeModule {}

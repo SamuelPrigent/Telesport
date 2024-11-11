@@ -30,6 +30,8 @@ export class Home implements OnInit {
   olympicsData: { name: string; value: number }[] = [];
   olympics$: Observable<any[any]> = of(null);
   olympicSub: Subscription | null = null;
+  countryNumber: number = 0;
+  gamesNumber: number = 0;
   // Functions
   formatData(data: Country[]): { name: string; value: number }[] {
     // Mock
@@ -61,14 +63,22 @@ export class Home implements OnInit {
       return formatedData;
     }
   }
+
   // -------------------------------------------------
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     // Souscrire et formater les données
     this.olympicSub = this.olympics$.subscribe((data) => {
       if (data) {
-        console.log("Raw data:", data); // check data
+        console.log("Sub data:", data); // check data
+        // data for ngx
         this.olympicsData = this.formatData(data); // Formate data dans le subscribe
+        this.olympicsData = this.olympicsData.sort((a, b) => a.value - b.value);
+        // for div.chartInfoNumber
+        this.countryNumber = data.length;
+        if (data[0].participations) {
+          this.gamesNumber = data[0].participations.length;
+        }
       }
     });
   }

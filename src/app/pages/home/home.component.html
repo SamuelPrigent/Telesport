@@ -1,4 +1,8 @@
+<app-header></app-header>
 <div style="margin: 0px 15px 30px 15px">
-  <h2 style="margin-bottom: 35px">Telesport 2024</h2>
-  <Ngx [data]="olympicsData"></Ngx>
+  <NgxPie
+    [countryNumber]="countryNumber"
+    [gamesNumber]="gamesNumber"
+    [data]="olympicsData"
+  ></NgxPie>
 </div>

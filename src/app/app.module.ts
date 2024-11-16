@@ -9,19 +9,20 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
 // pages
 import { HomeModule } from "./pages/home/home.module";
 import { DetailsModule } from "./pages/details/details.module";
-// TEST
-// import { RouterModule } from "@angular/router";
+// TEST TO FIX ERR ?????
+// import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
-    // RouterModule, // ??
     AppRoutingModule,
     CommonModule,
     HttpClientModule,
     HomeModule,
     DetailsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

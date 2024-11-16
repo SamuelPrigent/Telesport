@@ -70,7 +70,7 @@ export class Home implements OnInit {
     // Souscrire et formater les données
     this.olympicSub = this.olympics$.subscribe((data) => {
       if (data) {
-        console.log("Sub data:", data); // check data
+        // console.log("(Home) sub:", data); // check data
         // data for ngx
         this.olympicsData = this.formatData(data); // Formate data dans le subscribe
         this.olympicsData = this.olympicsData.sort((a, b) => a.value - b.value);

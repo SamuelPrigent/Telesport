@@ -1,0 +1,34 @@
+<h3 class="chartTitle">{{ country }}</h3>
+<div class="chartInfoContainer">
+  <div class="chartInfo">
+    <div class="chartInfoTitle">Nombre de participations</div>
+    <div class="chartInfoNumber">{{ participationsNumber }}</div>
+  </div>
+  <div class="chartInfo">
+    <div class="chartInfoTitle">Nombre de médailles</div>
+    <div class="chartInfoNumber">{{ medalsNumber }}</div>
+  </div>
+  <div class="chartInfo">
+    <div class="chartInfoTitle">Nombre d'athlete</div>
+    <div class="chartInfoNumber">{{ athletesNumber }}</div>
+  </div>
+</div>
+<!-- Line Charts -->
+<div style="display: flex; justify-content: center">
+  <ngx-charts-line-chart
+    [results]="data"
+    [view]="view"
+    [scheme]="'cool'"
+    [customColors]="customColors"
+    [legend]="false"
+    [animations]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [yAxisTicks]="yAxisTicks"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="xAxisLabel"
+    [yScaleMax]="yAxisMax"
+  >
+  </ngx-charts-line-chart>
+</div>

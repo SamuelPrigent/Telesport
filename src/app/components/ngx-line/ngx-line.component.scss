@@ -1,6 +1,11 @@
 $bleuvert: #008591;
 $borderradius: 6px;
 
+.flexJustify {
+  display: flex;
+  justify-content: center;
+}
+
 .chartTitle {
   display: flex;
   justify-content: center;
@@ -38,7 +43,7 @@ $borderradius: 6px;
 
 .chartInfoNumber {
   color: black;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 .labelContainer {

@@ -14,20 +14,19 @@
   </div>
 </div>
 <!-- Line Charts -->
-<div style="display: flex; justify-content: center">
+<div class="flexJustify">
   <ngx-charts-line-chart
     [results]="data"
     [view]="view"
     [scheme]="'cool'"
-    [customColors]="customColors"
     [legend]="false"
     [animations]="false"
     [xAxis]="true"
     [yAxis]="true"
-    [yAxisTicks]="yAxisTicks"
     [showXAxisLabel]="true"
     [showYAxisLabel]="true"
     [xAxisLabel]="xAxisLabel"
+    [yAxisTicks]="yAxisTicks"
     [yScaleMax]="yAxisMax"
   >
   </ngx-charts-line-chart>

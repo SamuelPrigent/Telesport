@@ -1,31 +1,29 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormattedDataLine } from "src/app/core/models/Utillity";
+import { ActivatedRoute, Router } from "@angular/router"; // to main ticks
 
-// === Component
 @Component({
   selector: "NgxLine",
   templateUrl: "./ngx-line.component.html",
   styleUrl: "./ngx-line.component.scss",
 })
-
-// === Class variables
 export class NgxLine implements OnInit {
-  // props from details
-  @Input() data: any[any] = [];
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  // props from parent
+  @Input() data: FormattedDataLine[] = [];
   @Input() country: string | null = "";
   @Input() participationsNumber: number = 0;
   @Input() medalsNumber: number = 0;
   @Input() athletesNumber: number = 0;
 
-  //
-  customColors: any;
-
-  // custom props
+  // component props
   view: [number, number] = [700, 300];
   xAxisLabel: string = "Dates";
   yAxisMax: number = 0; // Max Y value for the graph
   yAxisTicks: number[] = []; // Custom ticks for Y axis
 
-  // functions -- Custom ticks
+  // custom y ticks
   generateYAxisTicks(maxValue: number, interval: number): number[] {
     const ticks = [];
     for (let i = 0; i <= maxValue; i += interval) {
@@ -34,35 +32,38 @@ export class NgxLine implements OnInit {
     return ticks;
   }
 
-  // Fonction pour définir les couleurs dynamiques
-  setCustomColors(): void {
-    const countryColors: { [key: string]: string } = {
-      France: "#0c51e6",
-      Germany: "#121212",
-      "United States": "#102b82",
-      Spain: "#FFCC00",
-      Italy: "#16ad2d",
-    };
-    const color = countryColors[this.country || ""] || "#AAAAAA"; // Couleur par défaut
-    this.customColors = this.data.map((item: any) => ({
-      name: item.name,
-      value: color,
-    }));
-  }
-
-  // on init
+  // Versions without maintain ticks
+  // ngOnInit(): void {
+  //   // custom yAxisMax
+  //   if (this.data.length > 0) {
+  //     const maxValue = Math.max(
+  //       ...this.data.flatMap((series: an*y) =>
+  //         series.series.map((e: an*y) => e.value)
+  //       )
+  //     );
+  //     this.yAxisMax = maxValue * 1.4;
+  //   }
+  //   // custom Ticks
+  //   this.yAxisTicks = this.generateYAxisTicks(this.yAxisMax, 20);
+  // }
+  //
+  // Maintain ticks with params
   ngOnInit(): void {
-    // Custom yAxisMax
-    if (this.data.length === 1) {
-      const maxValue = Math.max(
-        ...this.data[0].series.map((e: any) => e.value)
-      );
-      this.yAxisMax = maxValue * 1.5;
-    }
-    // Custom Ticks
+    this.route.queryParams.subscribe((params) => {
+      if (params["yAxisMax"]) {
+        this.yAxisMax = parseFloat(params["yAxisMax"]);
+      } else if (this.data.length > 0) {
+        const maxValue = Math.max(
+          ...this.data[0].series.map((e: any) => e.value)
+        );
+        this.yAxisMax = maxValue * 1.5;
+        // Ajoute le paramètre à l'URL
+        this.router.navigate([], {
+          queryParams: { yAxisMax: this.yAxisMax },
+          queryParamsHandling: "merge",
+        });
+      }
+    });
     this.yAxisTicks = this.generateYAxisTicks(this.yAxisMax, 20);
-
-    // custom color
-    this.setCustomColors();
   }
 }

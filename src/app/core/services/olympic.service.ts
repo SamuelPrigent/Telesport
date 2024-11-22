@@ -13,8 +13,7 @@ export class OlympicService {
   // private
   private olympicUrl = "./assets/mock/olympic.json";
   private olympics$ = new BehaviorSubject<Country[] | undefined>(undefined); // observable
-  // public default value
-  getDefaultOlympicData(): Country[] {
+  private getDefaultOlympicData(): Country[] {
     return [
       {
         id: 1,
@@ -31,7 +30,7 @@ export class OlympicService {
       },
     ];
   }
-
+  // public
   loadInitialData() {
     return this.http.get<Country[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),

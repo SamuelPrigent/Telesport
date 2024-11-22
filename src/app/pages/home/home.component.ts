@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 // Data
 import { Observable, of, Subscription } from "rxjs";
-import { catchError } from "rxjs/operators";
 import { OlympicService } from "src/app/core/services/olympic.service";
 // models
 import { Country } from "src/app/core/models/Country";
@@ -24,20 +23,13 @@ export class Home implements OnInit {
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics(); // récupère l'observable service
     // Abonnement à l'observable
-    this.olympicSub = this.olympics$
-      .pipe(
-        catchError((error) => {
-          console.error("Erreur lors de la récupération des données :", error);
-          return of(this.olympicService.getDefaultOlympicData()); // Valeur par défaut
-        })
-      )
-      .subscribe((data) => {
-        if (data && data[0]?.participations) {
-          this.olympicsData = this.formatData(data);
-          this.countryNumber = data.length;
-          this.gamesNumber = data[0].participations.length;
-        }
-      });
+    this.olympicSub = this.olympics$.subscribe((data) => {
+      if (data && data[0]?.participations) {
+        this.olympicsData = this.formatData(data);
+        this.countryNumber = data.length;
+        this.gamesNumber = data[0].participations.length;
+      }
+    });
   }
 
   // Functions

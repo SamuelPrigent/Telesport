@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
+    // take(1) donc pas besoins d'unsubscribe
     this.olympicService.loadInitialData().pipe(take(1)).subscribe();
   }
 }

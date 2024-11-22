@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { FormattedDataPie } from "src/app/core/models/Utillity";
+import { FormattedDataPie } from "src/app/core/models/FormattedData";
 
 // === Component
 @Component({

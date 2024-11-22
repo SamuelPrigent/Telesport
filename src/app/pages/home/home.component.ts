@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-// Data (from service)
-import { Observable, of, Subscription } from "rxjs"; // observable
-import { OlympicService } from "src/app/core/services/olympic.service"; // to get data
+// Data
+import { Observable, of, Subscription } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { OlympicService } from "src/app/core/services/olympic.service";
 // models
-import { Participation } from "src/app/core/models/Participation";
 import { Country } from "src/app/core/models/Country";
-import { Data } from "src/app/core/models/Utillity";
-import { FormattedDataPie } from "src/app/core/models/Utillity";
+import { Participation } from "src/app/core/models/Participation";
+import { FormattedDataPie } from "src/app/core/models/FormattedData";
 
 @Component({
   selector: "Home",
@@ -16,30 +16,33 @@ export class Home implements OnInit {
   constructor(private olympicService: OlympicService) {}
   // Types
   olympicsData: FormattedDataPie[] = [];
-  olympics$: Observable<Country[]> = of([]);
+  olympics$: Observable<Country[] | undefined> = of([]);
   olympicSub: Subscription | null = null;
   countryNumber: number = 0;
   gamesNumber: number = 0;
 
-  // -------------------------------------------------
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
-    // Souscrire et formater les données
-    this.olympicSub = this.olympics$.subscribe((data) => {
-      if (data) {
-        this.olympicsData = this.formatData(data);
-        this.countryNumber = data.length;
-        if (data[0].participations) {
+    this.olympics$ = this.olympicService.getOlympics(); // récupère l'observable service
+    // Abonnement à l'observable
+    this.olympicSub = this.olympics$
+      .pipe(
+        catchError((error) => {
+          console.error("Erreur lors de la récupération des données :", error);
+          return of(this.olympicService.getDefaultOlympicData()); // Valeur par défaut
+        })
+      )
+      .subscribe((data) => {
+        if (data && data[0]?.participations) {
+          this.olympicsData = this.formatData(data);
+          this.countryNumber = data.length;
           this.gamesNumber = data[0].participations.length;
         }
-      }
-    });
+      });
   }
 
   // Functions
   formatData(data: Country[]): FormattedDataPie[] {
     let formatedData: FormattedDataPie[] = [];
-    console.log(data);
     if (data) {
       data.forEach((country: Country) => {
         let medalsCountTotal = 0;
@@ -53,16 +56,16 @@ export class Home implements OnInit {
           });
         }
       });
-      formatedData = formatedData.sort((a: Data, b: Data) => a.value - b.value);
+      formatedData = formatedData.sort(
+        (a: FormattedDataPie, b: FormattedDataPie) => a.value - b.value
+      );
       return formatedData;
     } else {
       return formatedData;
     }
   }
 
-  // -------------------------------------------------
   ngOnDestroy(): void {
-    // unsubscribe
     if (this.olympicSub) {
       this.olympicSub.unsubscribe();
     }

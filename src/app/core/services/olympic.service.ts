@@ -4,45 +4,32 @@ import { BehaviorSubject } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 // models
 import { Country } from "../models/Country";
+// TEST
+import { GlobalErrorHandler } from "../utils/GlobalErrorHandler";
 
 @Injectable({
   providedIn: "root",
 })
 export class OlympicService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorHandler: GlobalErrorHandler
+  ) {}
   // private
   private olympicUrl = "./assets/mock/olympic.json";
   private olympics$ = new BehaviorSubject<Country[] | undefined>(undefined); // observable
-  private getDefaultOlympicData(): Country[] {
-    return [
-      {
-        id: 1,
-        country: "Unknown Country",
-        participations: [
-          {
-            athleteCount: 0,
-            city: "Unknown City",
-            id: 0,
-            medalsCount: 0,
-            year: 0,
-          },
-        ],
-      },
-    ];
-  }
   // public
   loadInitialData() {
     return this.http.get<Country[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
       catchError((error) => {
-        console.error("Erreur lors du chargement des données :", error);
-        this.olympics$.next(this.getDefaultOlympicData()); // Return default value
-        throw new Error(
-          "Les données olympiques n'ont pas pu être chargées. Veuillez réessayer plus tard."
-        );
+        this.olympics$.next([]); // L'observable renvoie un tableau vide
+        this.errorHandler.handleError(error); // Error handler
+        return []; // fallback pour le flux
       })
     );
   }
+
   getOlympics() {
     return this.olympics$.asObservable();
   }

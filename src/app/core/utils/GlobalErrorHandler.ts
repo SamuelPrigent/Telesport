@@ -10,8 +10,9 @@ export class GlobalErrorHandler implements ErrorHandler {
   handleError(error: any): void {
     // Comportement standart pour toutes les erreurs
     console.error("ErrorHandler :", error);
+    const status = error?.status || 500;
     this.router.navigate(["/error"], {
-      queryParams: { status: error.status },
+      queryParams: { status: status },
     });
   }
 }

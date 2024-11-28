@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+// import { of, asyncScheduler } from "rxjs";
+import { scheduled, asyncScheduler } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-// models
-import { Country } from "../models/Country";
-// TEST
-import { GlobalErrorHandler } from "../utils/GlobalErrorHandler";
+import { Country } from "../models/Country"; // models
+import { GlobalErrorHandler } from "../utils/GlobalErrorHandler"; // error handler
 
 @Injectable({
   providedIn: "root",
@@ -25,7 +25,7 @@ export class OlympicService {
       catchError((error) => {
         this.olympics$.next([]); // L'observable renvoie un tableau vide
         this.errorHandler.handleError(error); // Error handler
-        return []; // fallback pour le flux
+        return scheduled([], asyncScheduler); // fallback pour le flux
       })
     );
   }

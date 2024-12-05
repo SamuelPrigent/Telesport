@@ -64,3 +64,29 @@ $borderradius: 6px;
 .labelMedal img {
   height: 20px;
 }
+.relativeLeft {
+  position: relative;
+  left: -25.5px;
+}
+
+@media screen and (max-width: 700px) {
+  .chartInfoContainer {
+    gap: 15px;
+  }
+
+  .chartInfo {
+    border: 2px solid $bleuvert;
+    padding: 7px 9px;
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .chartInfoContainer {
+    padding: 0 20px 0 20px;
+    gap: 13px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}

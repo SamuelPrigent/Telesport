@@ -10,6 +10,7 @@ import { FormattedDataPie } from "src/app/core/models/FormattedData";
 @Component({
   selector: "Home",
   templateUrl: "./home.component.html",
+  styleUrl: "./home.component.scss",
 })
 export class Home implements OnInit {
   constructor(private olympicService: OlympicService) {}

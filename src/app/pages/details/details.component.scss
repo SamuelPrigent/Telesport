@@ -23,3 +23,9 @@ $borderradius: 6px;
   padding: 5px 7px;
   border-radius: $borderradius;
 }
+
+@media screen and (max-width: 500px) {
+  .flexContainer {
+    margin: 0px 0px 30px 0px;
+  }
+}

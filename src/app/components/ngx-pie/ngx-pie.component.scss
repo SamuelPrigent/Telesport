@@ -1,6 +1,11 @@
 $bleuvert: #008591;
 $borderradius: 6px;
 
+.ngx-container {
+  display: flex;
+  justify-content: center;
+}
+
 .chartTitle {
   display: flex;
   justify-content: center;
@@ -58,4 +63,16 @@ $borderradius: 6px;
 
 .labelMedal img {
   height: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .chartInfoContainer {
+    padding: 0 20px 0 20px;
+    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .chartInfo {
+    padding: 7px 9px;
+  }
 }

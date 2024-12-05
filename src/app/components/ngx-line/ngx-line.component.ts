@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, OnDestroy } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  HostListener,
+} from "@angular/core";
 import { FormattedDataLine } from "src/app/core/models/FormattedData";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router"; // to main ticks
@@ -6,19 +12,19 @@ import { ActivatedRoute, Router } from "@angular/router"; // to main ticks
 @Component({
   selector: "NgxLine",
   templateUrl: "./ngx-line.component.html",
-  styleUrl: "./ngx-line.component.scss",
+  styleUrls: ["./ngx-line.component.scss"], // Correction du `styleUrls` (pluriel)
 })
-export class NgxLine implements OnInit {
+export class NgxLine implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
-  // props from parent
+  // Props from parent
   @Input() data: FormattedDataLine[] = [];
   @Input() country: string | null = "";
   @Input() participationsNumber: number = 0;
   @Input() medalsNumber: number = 0;
   @Input() athletesNumber: number = 0;
 
-  // component props
+  // Component props
   view: [number, number] = [700, 300];
   xAxisLabel: string = "Dates";
   yAxisMax: number = 0; // Max Y value for the graph
@@ -28,8 +34,10 @@ export class NgxLine implements OnInit {
   private queryParamsSub: Subscription | null = null;
 
   ngOnInit(): void {
-    // === Maintain (yAxisMax + yAxisTicks) with params ===
-    // get or calculate yAxisMax
+    // Update view for responsiveness
+    this.updateView();
+
+    // Maintain (yAxisMax + yAxisTicks) with params
     this.queryParamsSub = this.route.queryParams.subscribe((params) => {
       if (params["yAxisMax"]) {
         this.yAxisMax = parseFloat(params["yAxisMax"]);
@@ -46,11 +54,29 @@ export class NgxLine implements OnInit {
           queryParamsHandling: "merge",
         });
       }
-      // generate yAxisTicks
+      // Generate yAxisTicks
       this.yAxisTicks = this.generateYAxisTicks(this.yAxisMax, 20);
     });
   }
-  // custom y ticks
+
+  // Update view size dynamically
+  @HostListener("window:resize", [])
+  onResize(): void {
+    this.updateView();
+  }
+
+  private updateView(): void {
+    const width = window.innerWidth;
+    if (width < 768) {
+      this.view = [width - 50, 250]; // Mobile
+    } else if (width < 1024) {
+      this.view = [600, 300]; // Tablet
+    } else {
+      this.view = [700, 300]; // Desktop
+    }
+  }
+
+  // Generate Y-axis ticks
   generateYAxisTicks(maxValue: number, interval: number): number[] {
     const ticks = [];
     for (let i = 0; i <= maxValue; i += interval) {
@@ -66,19 +92,3 @@ export class NgxLine implements OnInit {
     }
   }
 }
-
-// === Versions without maintaining ticks ===
-// ngOnInit(): void {
-//   // custom yAxisMax
-//   if (this.data.length > 0) {
-//     const maxValue = Math.max(
-//       ...this.data.flatMap((series: an*y) =>
-//         series.series.map((e: an*y) => e.value)
-//       )
-//     );
-//     this.yAxisMax = maxValue * 1.4;
-//   }
-//   // custom Ticks
-//   this.yAxisTicks = this.generateYAxisTicks(this.yAxisMax, 20);
-// }
-//

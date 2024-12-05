@@ -60,7 +60,11 @@ export class Details implements OnInit, OnDestroy {
     });
   }
 
-  // functions
+  /**
+   * Formate les données pour un graphique de type "line".
+   * @param {Country} data - Données d'un pays spécifique.
+   * @returns {FormattedDataLine[]} - Données formatées pour le graphique.
+   */
   formatData(data: Country): FormattedDataLine[] {
     let newArray: FormattedDataLine[] = [{ name: "Medailles", series: [] }];
     if (data && data.participations) {
@@ -75,6 +79,11 @@ export class Details implements OnInit, OnDestroy {
     return newArray;
   }
 
+  /**
+   * Calcule le nombre total de participations aux Jeux.
+   * @param {Country} data - Données d'un pays spécifique.
+   * @returns {number} - Nombre total de participations.
+   */
   getParticipationsNumber(data: Country): number {
     let participationsNumber = 0;
     if (data && data.participations) {
@@ -83,6 +92,11 @@ export class Details implements OnInit, OnDestroy {
     return participationsNumber;
   }
 
+  /**
+   * Calcule le nombre total d'athlètes ayant participé pour un pays.
+   * @param {Country} data - Données d'un pays spécifique.
+   * @returns {number} - Nombre total d'athlètes.
+   */
   getAthletesNumber(data: Country): number {
     let athletesNumber = 0;
     if (data && data.participations) {
@@ -93,6 +107,11 @@ export class Details implements OnInit, OnDestroy {
     return athletesNumber;
   }
 
+  /**
+   * Calcule le nombre total de médailles obtenues par un pays.
+   * @param {Country} data - Données d'un pays spécifique.
+   * @returns {number} - Nombre total de médailles.
+   */
   getMedalsNumber(data: Country): number {
     let medalsNumber = 0;
     if (data && data.participations) {
@@ -103,6 +122,9 @@ export class Details implements OnInit, OnDestroy {
     return medalsNumber;
   }
 
+  /**
+   * Vérifie si un abonnement existe et se désabonne de l'observable pour éviter les fuites de mémoire.
+   */
   ngOnDestroy(): void {
     if (this.olympicSub) {
       this.olympicSub.unsubscribe();

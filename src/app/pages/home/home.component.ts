@@ -8,7 +8,7 @@ import { Participation } from "src/app/core/models/Participation";
 import { FormattedDataPie } from "src/app/core/models/FormattedData";
 
 @Component({
-  selector: "Home",
+  selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.scss",
 })
@@ -33,7 +33,11 @@ export class Home implements OnInit {
     });
   }
 
-  // Functions
+  /**
+   * Formate les données des pays pour un graphique.
+   * @param {Country[]} data - Liste des pays et leurs participations.
+   * @returns {FormattedDataPie[]} - Données formatées pour le graphique.
+   */
   formatData(data: Country[]): FormattedDataPie[] {
     let formatedData: FormattedDataPie[] = [];
     if (data) {
@@ -58,6 +62,9 @@ export class Home implements OnInit {
     }
   }
 
+  /**
+   * Vérifie si un abonnement existe et se désabonne de l'observable pour éviter les fuites de mémoire.
+   */
   ngOnDestroy(): void {
     if (this.olympicSub) {
       this.olympicSub.unsubscribe();

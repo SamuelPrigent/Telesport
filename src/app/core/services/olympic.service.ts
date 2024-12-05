@@ -14,10 +14,13 @@ export class OlympicService {
     private http: HttpClient,
     private errorHandler: GlobalErrorHandler
   ) {}
-  // private
   private olympicUrl = "./assets/mock/olympic.json";
   private olympics$ = new BehaviorSubject<Country[] | undefined>(undefined); // observable
-  // public
+
+  /**
+   * Charge les données initiales des Jeux olympiques.
+   * @returns Observable de données des pays ou tableau vide en cas d'erreur.
+   */
   loadInitialData() {
     return this.http.get<Country[]>(this.olympicUrl).pipe(
       tap((value) => this.olympics$.next(value)),
@@ -29,6 +32,10 @@ export class OlympicService {
     );
   }
 
+  /**
+   * Retourne les données des Jeux olympiques.
+   * @returns Observable de données des pays ou tableau vide en cas d'erreur.
+   */
   getOlympics() {
     return this.olympics$.asObservable();
   }

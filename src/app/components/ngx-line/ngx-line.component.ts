@@ -65,6 +65,12 @@ export class NgxLine implements OnInit, OnDestroy {
     this.updateView();
   }
 
+  /**
+   * Met à jour la taille de this.view en fonction de la largeur de la fenêtre.
+   * - Mobile : Largeur-fenêtre - 50px, hauteur 250px.
+   * - Tablette : 600px par 300px.
+   * - Desktop : 700px par 300px.
+   */
   private updateView(): void {
     const width = window.innerWidth;
     if (width < 768) {
@@ -76,7 +82,12 @@ export class NgxLine implements OnInit, OnDestroy {
     }
   }
 
-  // Generate Y-axis ticks
+  /**
+   * Génère les ticks pour l'axe Y du graphique.
+   * @param {number} maxValue - Valeur maximale de l'axe Y.
+   * @param {number} interval - Intervalle entre les ticks.
+   * @returns {number[]} - Liste des ticks générés.
+   */
   generateYAxisTicks(maxValue: number, interval: number): number[] {
     const ticks = [];
     for (let i = 0; i <= maxValue; i += interval) {

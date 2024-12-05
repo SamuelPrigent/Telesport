@@ -32,6 +32,13 @@ export class NgxPie implements OnInit {
     this.updateView();
   }
 
+  /**
+   * Met à jour la taille de la vue du graphique en fonction de la largeur de la fenêtre.
+   * - Mobile petit : largeur de la fenêtre, hauteur 320px.
+   * - Mobile grand : largeur de la fenêtre - 30px, hauteur 350px.
+   * - Tablette : 600px par 400px.
+   * - Desktop : 700px par 400px.
+   */
   private updateView(): void {
     const width = window.innerWidth;
     if (width < 500) {
@@ -45,7 +52,7 @@ export class NgxPie implements OnInit {
     }
   }
 
-  // Ngx method
+  // Redirection vers la page de Détails du pays sur lequel l'utilisateur clique
   onSelect(data: { name: string; value: number; label: string }): void {
     this.router.navigate(["/details/", data.name]);
   }
